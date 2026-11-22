@@ -12,6 +12,7 @@
 		18F17CA3D45415900584C718 /* DisplayAwake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD8A8529C279482873E576E /* DisplayAwake.swift */; };
 		1C04813F4970B0F238C5A156 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33228DB262D249B8F2BB0E29 /* Components.swift */; };
 		238B1C34EA9D324276B17E7C /* LockPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B448A7A5357C47445B9BEA /* LockPlayerApp.swift */; };
+		258B83B410E7E7E6E8E7BC0A /* ShowcaseBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */; };
 		37DAB4A554DE3CA2BDC74D90 /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535D2AAD81408386DE55F180 /* LyricsView.swift */; };
 		3E7AD2FD6806F031E7B47481 /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64AEEA24CC279E75FFF7291 /* EqualizerView.swift */; };
 		4D127471E7CAC4EA19354535 /* PlayerSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F3D2EAD21119968A6591A1 /* PlayerSources.swift */; };
@@ -37,6 +38,7 @@
 		647FA9EA592176F9A4E2ED13 /* LockPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LockPlayer.entitlements; sourceTree = "<group>"; };
 		6E92199495D5423CFFA75965 /* LockScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreen.swift; sourceTree = "<group>"; };
 		8ACBB9D9E9EF2E7AB3D4EC6B /* LockPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LockPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseBackdrop.swift; sourceTree = "<group>"; };
 		B3F3D2EAD21119968A6591A1 /* PlayerSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSources.swift; sourceTree = "<group>"; };
 		CF5C8883FD689DC8238DBD14 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		D969FDB0AC3899AC0F49D037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				535D2AAD81408386DE55F180 /* LyricsView.swift */,
 				EC619494FB81EDC3D6FA261F /* MenuContent.swift */,
 				363008F16603512DD096F17E /* MiniPlayerView.swift */,
+				AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				58D61C01631CE5439E9EFD50 /* MiniPlayerView.swift in Sources */,
 				01DA6336FBE2BF74C2481191 /* NowPlaying.swift in Sources */,
 				4D127471E7CAC4EA19354535 /* PlayerSources.swift in Sources */,
+				258B83B410E7E7E6E8E7BC0A /* ShowcaseBackdrop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

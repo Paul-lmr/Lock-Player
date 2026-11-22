@@ -1,5 +1,11 @@
 # LockPlayer
 
+![Mini-lecteur sur l'écran verrouillé](docs/screenshots/lockscreen.png)
+
+| Pochette en grand | Paroles synchronisées |
+|---|---|
+| ![Pochette en grand](docs/screenshots/expanded.png) | ![Paroles](docs/screenshots/lyrics.png) |
+
 Affiche la musique en cours (Spotify ou n'importe quel lecteur) sur l'écran verrouillé du Mac :
 
 - **mini-lecteur en verre** : pochette, titre, progression (cliquable), ◀◀ ❚❚ ▶▶ ;

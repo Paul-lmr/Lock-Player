@@ -29,6 +29,8 @@ final class OverlayUIState {
     var expanded = false
     var showLyrics = false
     var isPreview = false
+    /// Faux écran verrouillé (fond d'écran + horloge, sans profil) pour faire des captures.
+    var showcase = false
 }
 
 @MainActor
@@ -93,7 +95,8 @@ final class AppCore {
         }
 
         // Analyse du son seulement quand le lecteur est visible et que ça joue.
-        observeChanges({ [unowned self] in (self.isLocked || self.ui.isPreview) && self.model.isPlaying }) { [weak self] active in
+        // (pas en mode vitrine : évite le voyant d'enregistrement audio sur les captures)
+        observeChanges({ [unowned self] in (self.isLocked || (self.ui.isPreview && !self.ui.showcase)) && self.model.isPlaying }) { [weak self] active in
             if active { self?.audio.start() } else { self?.audio.stop() }
         }
 
@@ -120,8 +123,12 @@ final class AppCore {
 
         // Pour tester sans verrouiller : open LockPlayer.app --args --preview [--expanded|--lyrics]
         let args = CommandLine.arguments
-        if args.contains("--preview") {
+        if args.contains("--showcase") {
+            toggleShowcase()
+        } else if args.contains("--preview") {
             overlay.show(.preview)
+        }
+        if args.contains("--preview") || args.contains("--showcase") {
             if args.contains("--expanded") { expand(lyrics: false) }
             if args.contains("--lyrics") { expand(lyrics: true) }
         }
@@ -160,6 +167,16 @@ final class AppCore {
     func collapse() {
         ui.expanded = false
         ui.showLyrics = false
+    }
+
+    func toggleShowcase() {
+        if ui.showcase {
+            overlay.hide()
+        } else {
+            overlay.show(.preview)
+            ui.showcase = true
+            overlay.relayout()
+        }
     }
 
     func togglePreview() {

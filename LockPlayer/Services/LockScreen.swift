@@ -131,8 +131,10 @@ final class OverlayController {
     func hide() {
         closeMini()
         closeExpanded()
+        closeBackdrop()
         core.collapse()
         core.ui.isPreview = false
+        core.ui.showcase = false
         mode = .hidden
     }
 
@@ -140,13 +142,26 @@ final class OverlayController {
         guard mode != .hidden else { return }
         closeMini()
         closeExpanded()
+        closeBackdrop()
         refresh()
     }
 
     private var screen: NSScreen? { NSScreen.screens.first }
+    private var backdropPanel: OverlayPanel?
+
+    private func closeBackdrop() {
+        backdropPanel?.close()
+        backdropPanel = nil
+    }
 
     private func refresh() {
         guard mode != .hidden, let screen else { return }
+
+        if core.ui.showcase, backdropPanel == nil {
+            let panel = makePanel(ShowcaseBackdrop { [weak core] in core?.toggleShowcase() }, frame: screen.frame)
+            panel.level = NSWindow.Level(rawValue: Int(Int32.max - 3)) // sous le lecteur
+            backdropPanel = panel
+        }
 
         if core.ui.expanded {
             if expandedPanel == nil {

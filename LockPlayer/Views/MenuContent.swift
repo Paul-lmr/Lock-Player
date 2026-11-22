@@ -18,6 +18,10 @@ struct MenuContent: View {
         }
         .keyboardShortcut("p")
 
+        Button(core.ui.showcase ? "Fermer le mode vitrine" : "Mode vitrine (captures d'écran)") {
+            core.toggleShowcase()
+        }
+
         Picker("Position du lecteur", selection: $core.position) {
             ForEach(MiniPosition.allCases) { position in
                 Text(position.label).tag(position)

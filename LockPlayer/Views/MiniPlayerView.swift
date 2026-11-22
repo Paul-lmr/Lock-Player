@@ -39,7 +39,7 @@ struct MiniPlayerView: View {
             ZStack {
                 TransportControls(core: core, iconSize: 20, spacing: 26)
                 HStack {
-                    if core.ui.isPreview {
+                    if core.ui.isPreview && !core.ui.showcase {
                         GlassIconButton(systemName: "xmark", size: 11) { core.togglePreview() }
                             .help("Fermer l'aperçu")
                     }
