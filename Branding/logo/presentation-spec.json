@@ -1,0 +1,33 @@
+{
+  "brand": "LockPlayer",
+  "tagline": "Ta musique, même écran verrouillé",
+  "brief": "Une app macOS perso qui affiche la musique en cours sur l'écran verrouillé, en Liquid Glass, avec les paroles synchronisées. L'identité doit être minimaliste, sombre, riche et chic.",
+  "adjectives": ["minimaliste", "nocturne", "chic", "musical"],
+  "criteria": "Lisible à 16 px dans la barre des menus, élégant en icône d'app, fonctionne en une couleur.",
+  "industry": "consumer-app",
+  "mockups": ["app-icon", "favicon-tab", "website", "sticker", "social", "business-card"],
+  "nav": ["Fonctionnalités", "Paroles", "Télécharger"],
+  "brand_color": "#111A33",
+  "tile_color": "#111A33",
+  "greyscale": false,
+  "final": true,
+  "designer": "LockPlayer",
+  "concepts": [
+    {
+      "name": "Pulse — Bleu nuit & argent",
+      "symbol": "final/lockplayer-mark.svg",
+      "lockup": "final/lockplayer-horizontal-light.svg",
+      "symbol_on_tile": "final/lockplayer-mark-mono-c9d0de.svg",
+      "symbol_on_dark": "final/lockplayer-mark-mono-c9d0de.svg",
+      "lockup_on_dark": "final/lockplayer-horizontal-dark.svg",
+      "idea": "Trois barres d'égaliseur en argent sur un bleu nuit presque noir : la musique, calme et élégante.",
+      "rationale": [
+        "Reprend les barres qui bougent avec le son dans le lecteur",
+        "Bleu nuit et argent : sobre, riche, cohérent avec l'écran verrouillé de nuit",
+        "Une version simplifiée aux barres plus épaisses garde la lisibilité à 16 px"
+      ]
+    }
+  ],
+  "recommendation": "Pulse en bleu nuit et argent, intégré comme icône d'app et icône de barre des menus.",
+  "next_steps": ["Utiliser le logo horizontal sur un README ou une page web", "Tester l'icône dans le Dock et le Finder"]
+}

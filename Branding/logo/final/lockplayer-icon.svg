@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <title>LockPlayer</title>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B2A4E"/><stop offset="1" stop-color="#080D1C"/></linearGradient>
+    <linearGradient id="bars" x1="0" y1="62" x2="0" y2="194" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEF1F7"/><stop offset="1" stop-color="#98A3BA"/></linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".09"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect x="25" y="25" width="206" height="206" rx="46" fill="url(#bg)"/>
+  <rect x="25" y="25" width="206" height="206" rx="46" fill="url(#gloss)"/>
+  <rect x="25.5" y="25.5" width="205" height="205" rx="45.5" fill="none" stroke="#fff" stroke-opacity=".08"/>
+  <g fill="url(#bars)">
+    <rect x="70" y="86" width="28" height="84" rx="14"/>
+    <rect x="114" y="62" width="28" height="132" rx="14"/>
+    <rect x="158" y="76" width="28" height="104" rx="14"/>
+  </g>
+</svg>

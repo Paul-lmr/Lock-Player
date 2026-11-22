@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <title>LockPlayer (petites tailles)</title>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B2A4E"/><stop offset="1" stop-color="#080D1C"/></linearGradient>
+    <linearGradient id="bars" x1="0" y1="62" x2="0" y2="194" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEF1F7"/><stop offset="1" stop-color="#98A3BA"/></linearGradient></defs>
+  <rect x="25" y="25" width="206" height="206" rx="46" fill="url(#bg)"/>
+  <g fill="#E3E7EF">
+    <rect x="62" y="84" width="36" height="88" rx="18"/>
+    <rect x="110" y="60" width="36" height="136" rx="18"/>
+    <rect x="158" y="74" width="36" height="108" rx="18"/>
+  </g>
+</svg>

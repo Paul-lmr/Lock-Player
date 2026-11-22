@@ -1,0 +1,4 @@
+// Copier en Config/Local.xcconfig et remplir.
+// Avec un certificat stable, macOS garde les autorisations (son, Spotify) d'une compilation à l'autre.
+CODE_SIGN_IDENTITY = Apple Development
+DEVELOPMENT_TEAM = XXXXXXXXXX
