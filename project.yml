@@ -3,6 +3,7 @@ options:
   deploymentTarget:
     macOS: "26.0"
   createIntermediateGroups: true
+  developmentLanguage: fr
 
 targets:
   LockPlayer:
@@ -17,6 +18,7 @@ targets:
       path: LockPlayer/Info.plist
       properties:
         CFBundleDisplayName: LockPlayer
+        CFBundleDevelopmentRegion: fr
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSUIElement: true

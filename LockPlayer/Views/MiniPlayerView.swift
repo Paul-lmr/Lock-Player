@@ -56,6 +56,49 @@ struct MiniPlayerView: View {
         .shadow(color: .black.opacity(0.5), radius: 4, y: 1) // lisibilité sur verre clair
         .shadow(color: .black.opacity(0.25), radius: 12)
         .glassEffect(.clear.interactive(), in: .rect(cornerRadius: 26))
-        .padding(24) // marge pour l'ombre du verre
+    }
+}
+
+/// Version compacte du lecteur (clic droit › Taille › Petit) : pochette, titre, lecture / suivant.
+struct CompactPlayerView: View {
+    let core: AppCore
+    private var model: NowPlaying { core.model }
+
+    var body: some View {
+        HStack(spacing: 11) {
+            Button {
+                core.expand(lyrics: false)
+            } label: {
+                ArtworkView(image: model.artwork, size: 42, cornerRadius: 9)
+                    .shadow(color: .black.opacity(0.25), radius: 5, y: 2)
+            }
+            .buttonStyle(PressScaleStyle())
+            .help("Afficher la pochette en grand")
+
+            VStack(alignment: .leading, spacing: 1) {
+                Text(model.hasTrack ? model.title : "Aucune musique")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.white)
+                Text(model.hasTrack ? model.artist : "Lance un morceau")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.white.opacity(0.65))
+            }
+            .lineLimit(1)
+
+            Spacer(minLength: 4)
+
+            ControlButton(systemName: model.isPlaying ? "pause.fill" : "play.fill", size: 17) {
+                core.togglePlayPause()
+            }
+            .contentTransition(.symbolEffect(.replace))
+            ControlButton(systemName: "forward.fill", size: 14) { core.next() }
+        }
+        .padding(.leading, 12)
+        .padding(.trailing, 8)
+        .padding(.vertical, 10)
+        .frame(width: 300)
+        .shadow(color: .black.opacity(0.5), radius: 4, y: 1)
+        .shadow(color: .black.opacity(0.25), radius: 12)
+        .glassEffect(.clear.interactive(), in: .rect(cornerRadius: 22))
     }
 }

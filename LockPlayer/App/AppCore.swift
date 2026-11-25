@@ -3,25 +3,6 @@ import Observation
 import ServiceManagement
 import SwiftUI
 
-/// Où le mini-lecteur apparaît sur l'écran verrouillé.
-enum MiniPosition: String, CaseIterable, Identifiable {
-    case underClock
-    case aboveLogin
-    case bottomLeft
-    case bottomRight
-
-    var id: String { rawValue }
-
-    var label: String {
-        switch self {
-        case .underClock: "Sous l'horloge"
-        case .aboveLogin: "Au-dessus du mot de passe"
-        case .bottomLeft: "En bas à gauche"
-        case .bottomRight: "En bas à droite"
-        }
-    }
-}
-
 /// État d'affichage partagé par les vues de l'overlay.
 @MainActor
 @Observable
@@ -31,6 +12,12 @@ final class OverlayUIState {
     var isPreview = false
     /// Faux écran verrouillé (fond d'écran + horloge, sans profil) pour faire des captures.
     var showcase = false
+    /// Mode « Modifier les widgets » : on glisse les widgets, galerie en bas.
+    var editingWidgets = false
+    /// Cran visé pendant un glisser.
+    var dropTarget: SnapSlot?
+    /// Emplacement exact où le widget glissé va atterrir (coordonnées écran) : le « fantôme ».
+    var dropPreview: CGRect?
 }
 
 @MainActor
@@ -42,17 +29,18 @@ final class AppCore {
     let lyrics = LyricsStore()
     let ui = OverlayUIState()
     let audio = AudioLevels()
+    let clock = ClockStore()
+    let worldClocks = WorldClockStore()
+    /// Où chaque widget est placé (crans), et lesquels sont affichés.
+    let layout = WidgetLayoutStore()
 
-    var position: MiniPosition {
-        didSet {
-            UserDefaults.standard.set(position.rawValue, forKey: "miniPosition")
-            overlay.relayout()
-        }
+    /// Villes d'Horloge affichées dans le widget (sans celles masquées au clic droit).
+    var shownWorldCities: [WorldCity] {
+        worldClocks.cities.filter { layout.isCityShown($0.id) }
     }
 
-    var launchAtLogin: Bool = SMAppService.mainApp.status == .enabled
 
-    /// Garder l'écran allumé tant que la musique joue sur l'écran verrouillé.
+    /// Garder l'écran allumé tant que la musique ou un minuteur tourne sur l'écran verrouillé.
     var keepScreenOn: Bool {
         didSet { UserDefaults.standard.set(keepScreenOn, forKey: "keepScreenOn") }
     }
@@ -70,8 +58,6 @@ final class AppCore {
     @ObservationIgnored private let lockMonitor = LockScreenMonitor()
 
     private init() {
-        let saved = UserDefaults.standard.string(forKey: "miniPosition")
-        position = saved.flatMap(MiniPosition.init(rawValue:)) ?? .underClock
         keepScreenOn = UserDefaults.standard.object(forKey: "keepScreenOn") as? Bool ?? true
         lyricsOffset = UserDefaults.standard.double(forKey: "lyricsOffset")
     }
@@ -86,11 +72,14 @@ final class AppCore {
             self.isLocked = false
             if self.overlay.mode == .locked { self.overlay.hide() }
         }
+        ensureLaunchAtLogin()
         lockMonitor.start()
         overlay.start()
 
-        // Écran allumé seulement : verrouillé + musique en lecture + option active.
-        observeChanges({ [unowned self] in self.isLocked && self.model.isPlaying && self.keepScreenOn }) { [weak self] active in
+        // Écran allumé seulement : verrouillé + (musique ou activité en cours) + option active.
+        observeChanges({ [unowned self] in
+            self.isLocked && self.keepScreenOn && (self.model.isPlaying || self.clock.hasRunningTimers)
+        }) { [weak self] active in
             self?.displayAwake.set(active)
         }
 
@@ -111,6 +100,15 @@ final class AppCore {
             )
         }
 
+        // Minuteurs, alarmes et chronomètres de l'app Horloge.
+        // Quand ça sonne sur l'écran verrouillé : on revient à la vue compacte pour voir la carte.
+        clock.onRing = { [weak self] in
+            guard let self, self.isLocked else { return }
+            self.collapse()
+        }
+        clock.start()
+        worldClocks.start()
+
         Task { await chooseSource() }
 
         // App lancée alors que la session est déjà verrouillée.
@@ -123,7 +121,9 @@ final class AppCore {
 
         // Pour tester sans verrouiller : open LockPlayer.app --args --preview [--expanded|--lyrics]
         let args = CommandLine.arguments
-        if args.contains("--showcase") {
+        if args.contains("--edit-widgets") {
+            toggleWidgetEditing()
+        } else if args.contains("--showcase") {
             toggleShowcase()
         } else if args.contains("--preview") {
             overlay.show(.preview)
@@ -179,6 +179,19 @@ final class AppCore {
         }
     }
 
+    /// Mode « Modifier les widgets » (session ouverte) : faux écran verrouillé, crans visibles, galerie.
+    func toggleWidgetEditing() {
+        if ui.editingWidgets {
+            overlay.hide()
+        } else {
+            collapse()
+            overlay.show(.preview)
+            ui.showcase = true
+            ui.editingWidgets = true
+            overlay.relayout()
+        }
+    }
+
     func togglePreview() {
         if overlay.mode == .preview {
             overlay.hide()
@@ -187,17 +200,16 @@ final class AppCore {
         }
     }
 
-    func setLaunchAtLogin(_ enabled: Bool) {
+    /// Toujours lancée à l'ouverture de session (plus d'interrupteur dans le menu).
+    /// Seulement pour la version installée dans /Applications, pas pour les compilations de test.
+    private func ensureLaunchAtLogin() {
+        guard Bundle.main.bundlePath.hasPrefix("/Applications/"),
+              SMAppService.mainApp.status != .enabled else { return }
         do {
-            if enabled {
-                try SMAppService.mainApp.register()
-            } else {
-                try SMAppService.mainApp.unregister()
-            }
+            try SMAppService.mainApp.register()
         } catch {
-            NSLog("LockPlayer: launch at login error \(error)")
+            NSLog("LockPlayer: lancement au démarrage impossible: \(error)")
         }
-        launchAtLogin = SMAppService.mainApp.status == .enabled
     }
 }
 

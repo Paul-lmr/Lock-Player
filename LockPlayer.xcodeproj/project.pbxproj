@@ -13,33 +13,45 @@
 		1C04813F4970B0F238C5A156 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33228DB262D249B8F2BB0E29 /* Components.swift */; };
 		238B1C34EA9D324276B17E7C /* LockPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B448A7A5357C47445B9BEA /* LockPlayerApp.swift */; };
 		258B83B410E7E7E6E8E7BC0A /* ShowcaseBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */; };
+		30CC67E06356EAEB456C073A /* ClockActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81799B54BF7E64EA54117244 /* ClockActivities.swift */; };
 		37DAB4A554DE3CA2BDC74D90 /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535D2AAD81408386DE55F180 /* LyricsView.swift */; };
 		3E7AD2FD6806F031E7B47481 /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64AEEA24CC279E75FFF7291 /* EqualizerView.swift */; };
 		4D127471E7CAC4EA19354535 /* PlayerSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F3D2EAD21119968A6591A1 /* PlayerSources.swift */; };
+		56BCDC84DB70CF621DBE2749 /* WidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA6983BCC980FDEA5CFCD6 /* WidgetViews.swift */; };
 		58D61C01631CE5439E9EFD50 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363008F16603512DD096F17E /* MiniPlayerView.swift */; };
 		5A460C69FA1AA73108022808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 465172A125822FDED4BDD90C /* Assets.xcassets */; };
+		5C3D1538D858BA28A2122FA4 /* ActivityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FF955F149951C47CD3B4D /* ActivityViews.swift */; };
 		685A545F537207F50E638A81 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5C8883FD689DC8238DBD14 /* AppCore.swift */; };
 		6FA896D4479C626A08024873 /* AudioLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC5B679A025D9FC625959E /* AudioLevels.swift */; };
 		8BB43AACCB1ADD3422238B71 /* ExpandedPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9E7D5D2F1432C83309B5D /* ExpandedPlayerView.swift */; };
+		97181318BDE47ABF99287A57 /* WorldClocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A1618B559CF50498BB1AAE /* WorldClocks.swift */; };
 		A19AF21E0B6CA0BF48238766 /* MenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC619494FB81EDC3D6FA261F /* MenuContent.swift */; };
+		B6EDD5721CEC4764CB0026C5 /* WorldClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BC1FE3BB034C9D1871D26 /* WorldClockView.swift */; };
+		B872B4B8945B0195B2D2B1D1 /* WidgetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6D33DBF90C860FFD3BF59 /* WidgetLayout.swift */; };
 		E919FD28DE18D66436AF041E /* MediaRemoteAdapter in Resources */ = {isa = PBXBuildFile; fileRef = EDF548D3CBE5B371C7EC1D2A /* MediaRemoteAdapter */; };
 		F0ABA7461974765A0D9FB074 /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5DCADFA7CD00FA51170B5C /* Lyrics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10D9E7D5D2F1432C83309B5D /* ExpandedPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedPlayerView.swift; sourceTree = "<group>"; };
+		1B2FF955F149951C47CD3B4D /* ActivityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViews.swift; sourceTree = "<group>"; };
 		2F5DCADFA7CD00FA51170B5C /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
 		2FD8A8529C279482873E576E /* DisplayAwake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayAwake.swift; sourceTree = "<group>"; };
 		33228DB262D249B8F2BB0E29 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		363008F16603512DD096F17E /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 		465172A125822FDED4BDD90C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4FD6D33DBF90C860FFD3BF59 /* WidgetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLayout.swift; sourceTree = "<group>"; };
 		5043E10487A3F478C7D6D5B2 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		535D2AAD81408386DE55F180 /* LyricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsView.swift; sourceTree = "<group>"; };
 		647FA9EA592176F9A4E2ED13 /* LockPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LockPlayer.entitlements; sourceTree = "<group>"; };
 		6E92199495D5423CFFA75965 /* LockScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreen.swift; sourceTree = "<group>"; };
+		81799B54BF7E64EA54117244 /* ClockActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockActivities.swift; sourceTree = "<group>"; };
 		8ACBB9D9E9EF2E7AB3D4EC6B /* LockPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LockPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		915BC1FE3BB034C9D1871D26 /* WorldClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldClockView.swift; sourceTree = "<group>"; };
+		92CA6983BCC980FDEA5CFCD6 /* WidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViews.swift; sourceTree = "<group>"; };
 		AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseBackdrop.swift; sourceTree = "<group>"; };
 		B3F3D2EAD21119968A6591A1 /* PlayerSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSources.swift; sourceTree = "<group>"; };
+		C2A1618B559CF50498BB1AAE /* WorldClocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldClocks.swift; sourceTree = "<group>"; };
 		CF5C8883FD689DC8238DBD14 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		D969FDB0AC3899AC0F49D037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E64AEEA24CC279E75FFF7291 /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
@@ -72,6 +84,7 @@
 		52ACE5E84B6403239C7B6993 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1B2FF955F149951C47CD3B4D /* ActivityViews.swift */,
 				33228DB262D249B8F2BB0E29 /* Components.swift */,
 				E64AEEA24CC279E75FFF7291 /* EqualizerView.swift */,
 				10D9E7D5D2F1432C83309B5D /* ExpandedPlayerView.swift */,
@@ -79,6 +92,8 @@
 				EC619494FB81EDC3D6FA261F /* MenuContent.swift */,
 				363008F16603512DD096F17E /* MiniPlayerView.swift */,
 				AE798122DCC80855FC909AB9 /* ShowcaseBackdrop.swift */,
+				92CA6983BCC980FDEA5CFCD6 /* WidgetViews.swift */,
+				915BC1FE3BB034C9D1871D26 /* WorldClockView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -87,11 +102,14 @@
 			isa = PBXGroup;
 			children = (
 				F4EC5B679A025D9FC625959E /* AudioLevels.swift */,
+				81799B54BF7E64EA54117244 /* ClockActivities.swift */,
 				2FD8A8529C279482873E576E /* DisplayAwake.swift */,
 				6E92199495D5423CFFA75965 /* LockScreen.swift */,
 				2F5DCADFA7CD00FA51170B5C /* Lyrics.swift */,
 				EBAE22ABD19B2163B1BEFF10 /* NowPlaying.swift */,
 				B3F3D2EAD21119968A6591A1 /* PlayerSources.swift */,
+				4FD6D33DBF90C860FFD3BF59 /* WidgetLayout.swift */,
+				C2A1618B559CF50498BB1AAE /* WorldClocks.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -170,11 +188,11 @@
 				};
 			};
 			buildConfigurationList = B6D01C93A715D1F97B69E05A /* Build configuration list for PBXProject "LockPlayer" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				fr,
 			);
 			mainGroup = 1331146870EC9B34E600CCFE;
 			minimizedProjectReferenceProxies = 1;
@@ -205,8 +223,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3D1538D858BA28A2122FA4 /* ActivityViews.swift in Sources */,
 				685A545F537207F50E638A81 /* AppCore.swift in Sources */,
 				6FA896D4479C626A08024873 /* AudioLevels.swift in Sources */,
+				30CC67E06356EAEB456C073A /* ClockActivities.swift in Sources */,
 				1C04813F4970B0F238C5A156 /* Components.swift in Sources */,
 				18F17CA3D45415900584C718 /* DisplayAwake.swift in Sources */,
 				3E7AD2FD6806F031E7B47481 /* EqualizerView.swift in Sources */,
@@ -220,6 +240,10 @@
 				01DA6336FBE2BF74C2481191 /* NowPlaying.swift in Sources */,
 				4D127471E7CAC4EA19354535 /* PlayerSources.swift in Sources */,
 				258B83B410E7E7E6E8E7BC0A /* ShowcaseBackdrop.swift in Sources */,
+				B872B4B8945B0195B2D2B1D1 /* WidgetLayout.swift in Sources */,
+				56BCDC84DB70CF621DBE2749 /* WidgetViews.swift in Sources */,
+				B6EDD5721CEC4764CB0026C5 /* WorldClockView.swift in Sources */,
+				97181318BDE47ABF99287A57 /* WorldClocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
