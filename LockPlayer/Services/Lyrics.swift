@@ -117,7 +117,7 @@ enum LRCLib {
     private static let session: URLSession = {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 10
-        config.httpAdditionalHeaders = ["User-Agent": "LockPlayer/1.0 (macOS lock screen player)"]
+        config.httpAdditionalHeaders = ["User-Agent": "LockPlayer/1.1 (macOS lock screen player)"]
         return URLSession(configuration: config)
     }()
 
