@@ -10,7 +10,7 @@ struct LyricsView: View {
                 TimelineView(.periodic(from: .now, by: 0.2)) { context in
                     SyncedLyricsList(
                         lines: lines,
-                        current: LyricsStore.currentIndex(in: lines, at: core.model.elapsed(at: context.date) + core.lyricsOffset)
+                        current: LyricsStore.currentIndex(in: lines, at: core.model.elapsed(at: context.date))
                     ) { core.seek(to: $0) }
                 }
             case let .plain(lines):

@@ -119,18 +119,27 @@ final class OverlayController {
 
     private var dragging: WidgetKind?
     private var grabOffset = NSPoint.zero
+    /// Dernier état vu par l'observateur : on ne reconstruit que si quelque chose a vraiment changé.
+    private var lastStateKey = ""
 
     init(core: AppCore) {
         self.core = core
     }
 
     func start() {
+        // L'horloge des cartes avance chaque seconde : sans cette clé, l'overlay se reconstruirait
+        // chaque seconde. On compare un résumé de ce qui compte vraiment pour la disposition.
         observeChanges({ [core] in
-            (core.ui.expanded, core.ui.editingWidgets, core.model.hasTrack,
-             core.clock.lockScreenItems.map(\.kind.rawValue), core.shownWorldCities.isEmpty,
-             core.layout.placements.map { "\($0.key.rawValue)\($0.value.slot.rawValue)\($0.value.order)\($0.value.enabled)" })
-        }) { [weak self] _ in
-            self?.refresh()
+            [core.ui.expanded ? "E" : "", core.ui.editingWidgets ? "W" : "", core.model.hasTrack ? "M" : "",
+             core.clock.lockScreenItems.map(\.kind.rawValue).joined(separator: ","),
+             core.shownWorldCities.isEmpty ? "" : "C",
+             core.layout.placements.sorted { $0.key.rawValue < $1.key.rawValue }
+                .map { "\($0.key.rawValue):\($0.value.slot.rawValue):\($0.value.order):\($0.value.enabled)" }
+                .joined(separator: ",")].joined(separator: "|")
+        }) { [weak self] key in
+            guard let self, key != self.lastStateKey else { return }
+            self.lastStateKey = key
+            self.refresh()
         }
         NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated { self?.relayout() }
@@ -141,6 +150,7 @@ final class OverlayController {
         teardown()
         mode = newMode
         core.ui.isPreview = newMode == .preview
+        core.overlayDidChange(active: true)
         refresh()
     }
 
@@ -161,6 +171,7 @@ final class OverlayController {
         core.ui.dropPreview = nil
         dragging = nil
         mode = .hidden
+        core.overlayDidChange(active: false)
     }
 
     func relayout() {
@@ -221,7 +232,7 @@ final class OverlayController {
         for kind in WidgetKind.allCases {
             if shouldShow(kind) {
                 if let panel = widgetPanels[kind] {
-                    panel.orderFrontRegardless()
+                    if !panel.isVisible { panel.orderFrontRegardless() }
                 } else {
                     let host = FirstMouseHostingView(rootView: AnyView(WidgetContainer(core: core, kind: kind).environment(\.colorScheme, .dark)))
                     sizes[kind] = host.fittingSize

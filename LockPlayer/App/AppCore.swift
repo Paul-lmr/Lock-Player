@@ -45,11 +45,6 @@ final class AppCore {
         didSet { UserDefaults.standard.set(keepScreenOn, forKey: "keepScreenOn") }
     }
 
-    /// Avance (s) appliquée aux paroles : positif = les paroles arrivent plus tôt.
-    var lyricsOffset: Double {
-        didSet { UserDefaults.standard.set(lyricsOffset, forKey: "lyricsOffset") }
-    }
-
     private(set) var isLocked = false
     @ObservationIgnored private let displayAwake = DisplayAwake()
 
@@ -59,7 +54,6 @@ final class AppCore {
 
     private init() {
         keepScreenOn = UserDefaults.standard.object(forKey: "keepScreenOn") as? Bool ?? true
-        lyricsOffset = UserDefaults.standard.double(forKey: "lyricsOffset")
     }
 
     func start() {
@@ -89,15 +83,10 @@ final class AppCore {
             if active { self?.audio.start() } else { self?.audio.stop() }
         }
 
-        // Paroles : on précharge à chaque changement de morceau.
+        // Paroles : préchargées à chaque changement de morceau, seulement si les widgets sont affichés.
         observeChanges({ [model] in model.trackKey }) { [weak self] _ in
-            guard let self else { return }
-            self.lyrics.update(
-                title: self.model.title,
-                artist: self.model.artist,
-                album: self.model.album,
-                duration: self.model.duration
-            )
+            guard let self, self.overlayActive else { return }
+            self.prefetchLyrics()
         }
 
         // Minuteurs, alarmes et chronomètres de l'app Horloge.
@@ -134,6 +123,22 @@ final class AppCore {
         }
     }
 
+    /// Widgets à l'écran ou non : c'est là qu'on allume ou coupe tout le travail de fond.
+    @ObservationIgnored private(set) var overlayActive = false
+
+    func overlayDidChange(active: Bool) {
+        guard active != overlayActive else { return }
+        overlayActive = active
+        clock.setActive(active)
+        worldClocks.setActive(active)
+        source?.setForeground(active)
+        if active { prefetchLyrics() }
+    }
+
+    private func prefetchLyrics() {
+        lyrics.update(title: model.title, artist: model.artist, album: model.album, duration: model.duration)
+    }
+
     func stop() {
         source?.stop()
         overlay.hide()
@@ -146,8 +151,8 @@ final class AppCore {
         } else {
             source = SpotifyScriptSource(model: model)
         }
-        model.sourceDescription = source?.name ?? "Aucune source"
         source?.start()
+        source?.setForeground(overlayActive)
     }
 
     // MARK: - Commandes

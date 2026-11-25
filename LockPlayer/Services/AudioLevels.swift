@@ -72,7 +72,8 @@ final class AudioLevels {
 }
 
 /// Tap global (tout le son du Mac) + device agrégé privé + analyse FFT.
-final class SystemAudioTap {
+/// Créé sur le fil principal puis utilisé uniquement depuis ses files série (réglage et audio).
+final class SystemAudioTap: @unchecked Sendable {
     enum TapError: Error { case status(String, OSStatus) }
 
     private let onLevels: ([Float]) -> Void
@@ -171,6 +172,9 @@ final class SystemAudioTap {
         while samples.count >= fftSize {
             let chunk = Array(samples.prefix(fftSize))
             samples.removeFirst(fftSize / 2) // recouvrement 50 %
+            // Les barres n'ont besoin que de 30 images/s : inutile de calculer une FFT
+            // pour chaque bloc audio (~94/s), on saute ceux qui arrivent trop tôt.
+            guard Date().timeIntervalSince(lastEmit) >= 1.0 / 30 else { continue }
             analyze(chunk)
         }
     }
@@ -209,9 +213,7 @@ final class SystemAudioTap {
             levels[b] = energy < 1e-9 ? 0 : Float(max(0, 1 + db / 30))
         }
 
-        let now = Date()
-        guard now.timeIntervalSince(lastEmit) >= 1.0 / 40 else { return }
-        lastEmit = now
+        lastEmit = Date()
         onLevels(levels)
     }
 

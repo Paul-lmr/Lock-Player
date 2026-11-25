@@ -94,13 +94,20 @@ final class ClockStore {
 
     func start() {
         refresh()
+    }
+
+    /// Relecture chaque seconde uniquement quand les widgets sont à l'écran.
+    func setActive(_ active: Bool) {
+        timer?.invalidate()
+        timer = nil
+        guard active else { return }
+        refresh()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
         }
         timer?.tolerance = 0.2
     }
 
-    var hasRinging: Bool { items.contains { $0.isRinging } }
     /// Minuteur ou chronomètre en marche (pour garder l'écran allumé).
     var hasRunningTimers: Bool { items.contains { $0.kind != .alarm && !$0.isPaused && !$0.isRinging } }
 

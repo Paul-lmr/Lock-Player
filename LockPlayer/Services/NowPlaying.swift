@@ -17,7 +17,6 @@ final class NowPlaying {
     var isPlaying = false
     private(set) var artwork: NSImage?
     private(set) var accent = Color(white: 0.3)
-    var sourceDescription = "Recherche…"
 
     var hasTrack: Bool { !title.isEmpty }
     var trackKey: String { "\(artist)\u{1F}\(title)" }

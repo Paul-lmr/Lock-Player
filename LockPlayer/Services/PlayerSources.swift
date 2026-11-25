@@ -3,9 +3,10 @@ import Foundation
 
 @MainActor
 protocol PlayerSource: AnyObject {
-    var name: String { get }
     func start()
     func stop()
+    /// true quand un widget est à l'écran (écran verrouillé, aperçu…) : travail de précision actif.
+    func setForeground(_ foreground: Bool)
     func togglePlayPause()
     func next()
     func previous()
@@ -62,8 +63,6 @@ struct AdapterPaths {
 
 @MainActor
 final class MediaRemoteSource: PlayerSource {
-    let name = "MediaRemote"
-
     private let paths: AdapterPaths
     private unowned let model: NowPlaying
     private var process: Process?
@@ -85,9 +84,18 @@ final class MediaRemoteSource: PlayerSource {
     func start() {
         stopped = false
         launch()
+    }
+
+    /// Le recalage sur Spotify (AppleScript toutes les 3 s) ne sert qu'aux widgets affichés.
+    func setForeground(_ foreground: Bool) {
+        syncTimer?.invalidate()
+        syncTimer = nil
+        guard foreground, !stopped else { return }
+        syncWithSpotify()
         syncTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.syncWithSpotify() }
         }
+        syncTimer?.tolerance = 0.5
     }
 
     func stop() {
@@ -253,8 +261,6 @@ final class MediaRemoteSource: PlayerSource {
 
 @MainActor
 final class SpotifyScriptSource: PlayerSource {
-    let name = "Spotify (AppleScript)"
-
     private unowned let model: NowPlaying
     private var timer: Timer?
     private var artworkURL: String?
@@ -277,10 +283,17 @@ final class SpotifyScriptSource: PlayerSource {
     }
 
     func start() {
+        setForeground(false)
+    }
+
+    /// Une interrogation par seconde quand c'est affiché, toutes les 10 s sinon.
+    func setForeground(_ foreground: Bool) {
+        timer?.invalidate()
         poll()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: foreground ? 1 : 10, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.poll() }
         }
+        timer?.tolerance = foreground ? 0.2 : 2
     }
 
     func stop() {

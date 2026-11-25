@@ -86,19 +86,6 @@ enum SnapSlot: String, CaseIterable, Codable {
         }
     }
 
-    var title: String {
-        switch self {
-        case .topLeft: "En haut à gauche"
-        case .underClock: "Sous l'horloge"
-        case .topRight: "En haut à droite"
-        case .middleLeft: "À gauche"
-        case .middleRight: "À droite"
-        case .bottomLeft: "En bas à gauche"
-        case .aboveLogin: "Au-dessus du profil"
-        case .bottomRight: "En bas à droite"
-        }
-    }
-
     /// Ligne d'ancrage : haut de la pile (down), bas (up) ou milieu (centered).
     func anchorY(in f: NSRect) -> CGFloat {
         switch self {

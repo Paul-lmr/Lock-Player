@@ -33,9 +33,7 @@ struct WidgetContainer: View {
                     .help("Retirer le widget")
                 }
             }
-            .phaseAnimator([false, true]) { view, phase in
-                view.rotationEffect(.degrees(editing && !lifted ? (phase ? 0.45 : -0.45) : 0))
-            } animation: { _ in .easeInOut(duration: 0.13) }
+            .modifier(Wiggle(active: editing && !lifted))
             .scaleEffect(lifted ? 1.04 : 1)
             // Ombre du widget soulevé : s'étale sur ~2 × rayon + décalage (16 × 2 + 8 = 40 pt), dans la marge de 64 pt.
             .shadow(color: .black.opacity(lifted ? 0.32 : 0), radius: 16, y: 8)
@@ -308,6 +306,22 @@ struct WidgetSettingsMenu: View {
         }
         Button("Retirer le widget", role: .destructive) {
             core.layout.setEnabled(kind, false)
+        }
+    }
+}
+
+/// Léger tremblement du mode édition. L'animation n'existe que pendant l'édition :
+/// sinon elle tournerait en permanence (même invisible) et coûterait du calcul pour rien.
+struct Wiggle: ViewModifier {
+    let active: Bool
+
+    func body(content: Content) -> some View {
+        if active {
+            content.phaseAnimator([false, true]) { view, phase in
+                view.rotationEffect(.degrees(phase ? 0.45 : -0.45))
+            } animation: { _ in .easeInOut(duration: 0.13) }
+        } else {
+            content
         }
     }
 }

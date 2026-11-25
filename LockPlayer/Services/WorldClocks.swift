@@ -32,10 +32,18 @@ final class WorldClockStore {
 
     func start() {
         refresh()
-        // Les villes changent rarement : une relecture par minute suffit.
+    }
+
+    /// Relecture à l'affichage, puis une fois par minute tant que c'est à l'écran.
+    func setActive(_ active: Bool) {
+        timer?.invalidate()
+        timer = nil
+        guard active else { return }
+        refresh()
         timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
         }
+        timer?.tolerance = 10
     }
 
     func refresh() {
